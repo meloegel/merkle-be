@@ -5,7 +5,7 @@
 ## Documentation:
 
 Base URL for Deployed API: <br>
-Front-End Github: <br>
+Front-End Github: https://github.com/meloegel/merkle-fe <br>
 Deployed Front-End Link: <br>
 
 ## About
