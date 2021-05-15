@@ -6,7 +6,7 @@
 
 Base URL for Deployed API: <br>
 Front-End Github: <br>
-Back-End Github: <br>
+Deployed Front-End Link: <br>
 
 ## About
 
