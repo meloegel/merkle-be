@@ -4,9 +4,9 @@
 
 ## Documentation:
 
-Base URL for Deployed API: <br>
+Base URL for Deployed API: https://merkle-be.herokuapp.com/<br>
 Front-End Github: https://github.com/meloegel/merkle-fe <br>
-Deployed Front-End Link: <br>
+Deployed Front-End Link: https://merkle-application.vercel.app/<br>
 
 ## About
 
@@ -19,6 +19,7 @@ Simple demo for the Merkle application assement.
 -Knex <br>
 -PostgresSQL3 <br>
 -Nodemon <br>
+-Cors <br>
 
 ## Endpoints
 
