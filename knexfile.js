@@ -15,7 +15,7 @@ module.exports = {
     },
   },
   production: {
-    client: 'pg',
+    client: 'postgresql',
     connection: pgConnection,
     ssl: { rejectUnauthorized: false },
     pool: {
