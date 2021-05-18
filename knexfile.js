@@ -17,7 +17,7 @@ module.exports = {
   production: {
     client: 'pg',
     connection: pgConnection,
-    ssl: { rejectUnauthorized: false },
+    ssl: false,
     migrations: {
       directory: './data/migrations'
     },
