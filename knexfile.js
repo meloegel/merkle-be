@@ -1,4 +1,3 @@
-const pgConnection = process.env.DATABASE_URL
 
 module.exports = {
   development: {
@@ -16,8 +15,10 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: pgConnection,
-    ssl: false,
+    connection: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    },
     migrations: {
       directory: './data/migrations'
     },
