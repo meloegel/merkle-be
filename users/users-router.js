@@ -28,6 +28,39 @@ router.get('/', (req, res) => {
         })
 })
 
+router.get('/:id', (req, res) => {
+    const { id } = req.params
+    Users.getUser(id)
+        .then(user => {
+            if (user) {
+                res.status(200).json(user)
+            }
+            res.status(200).json('User not found')
+        })
+        .catch(error => {
+            console.log(error)
+        })
+})
+
+router.put('/:id', (req, res) => {
+    const { id } = req.params
+    const changes = req.body
+    Users.getUser(id)
+        .then(user => {
+            if (user) {
+                Users.updateUser(changes, id)
+                    .then(updatedUser => {
+                        res.status(200).json('Updated user')
+                    })
+            } else {
+                res.status(200).json('User not found')
+            }
+        })
+        .catch(error => {
+            console.log(error)
+        })
+})
+
 
 // Deletes User //
 router.delete('/:id', (req, res) => {
