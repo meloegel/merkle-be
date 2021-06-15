@@ -17,15 +17,26 @@ router.post('/register', validateNewUser, (req, res) => {
 })
 
 // Gets All Users //
-router.get('/', (req, res) => {
-    Users.getAllUsers()
-        .then(users => {
-            res.status(200).json(users)
-        })
-        .catch(error => {
-            console.log(error)
-            res.status(500).json({ Error: 'Error getting all users' })
-        })
+// router.get('/', (req, res) => {
+//     Users.getAllUsers()
+//         .then(users => {
+//             res.status(200).json(users)
+//         })
+//         .catch(error => {
+//             console.log(error)
+//             res.status(500).json({ Error: 'Error getting all users' })
+//         })
+// })
+
+router.get('/', async function (req, res) {
+    try {
+        users = await Users.getAllUsers()
+        res.status(200).json(users)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ Error: 'Error getting all users' })
+    }
+
 })
 
 router.get('/:id', (req, res) => {
