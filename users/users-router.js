@@ -43,7 +43,25 @@ const Users = require('./users-model');
 //         })
 // })
 
-
+// Updates User //
+// router.put('/:id', (req, res) => {
+//     const { id } = req.params
+//     const changes = req.body
+//     Users.getUser(id)
+//         .then(user => {
+//             if (user) {
+//                 Users.updateUser(changes, id)
+//                     .then(updatedUser => {
+//                         res.status(200).json('Updated user')
+//                     })
+//             } else {
+//                 res.status(500).json('User not found')
+//             }
+//         })
+//         .catch(error => {
+//             console.log(error)
+//         })
+// })
 
 
 
@@ -88,27 +106,30 @@ router.get('/:id', async function (req, res) {
     }
 })
 
-
-
-
-router.put('/:id', (req, res) => {
+// Updates User //
+router.put('/:id', async function (req, res) {
     const { id } = req.params
     const changes = req.body
-    Users.getUser(id)
-        .then(user => {
-            if (user) {
-                Users.updateUser(changes, id)
-                    .then(updatedUser => {
-                        res.status(200).json('Updated user')
-                    })
-            } else {
-                res.status(200).json('User not found')
+    try {
+        let user = await Users.getUser(id)
+        if (user) {
+            try {
+                await Users.updateUser(changes, id)
+                res.status(200).json(`Updated User: ${id}`)
+            } catch (error) {
+                console.log(error)
+                res.status(500).json('Error updating user')
             }
-        })
-        .catch(error => {
-            console.log(error)
-        })
+        } else {
+            res.status(500).json('User not found')
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json('Error updating user')
+    }
 })
+
+
 
 
 // Deletes User //
