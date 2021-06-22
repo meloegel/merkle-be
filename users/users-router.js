@@ -63,7 +63,22 @@ const Users = require('./users-model');
 //         })
 // })
 
-
+// Deletes User //
+// router.delete('/:id', (req, res) => {
+//     const { id } = req.params
+//     Users.deleteUser(id)
+//         .then(deleted => {
+//             if (deleted) {
+//                 res.status(200).json({ Message: `User with id: ${id} has been deleted` })
+//             } else {
+//                 res.status(404).json({ Error: `Could not find User with id: ${id}` })
+//             }
+//         })
+//         .catch(error => {
+//             console.log(error)
+//             res.status(500).json({ Error: 'Error deleting User' })
+//         })
+// })
 
 
 // Registers User //
@@ -129,24 +144,20 @@ router.put('/:id', async function (req, res) {
     }
 })
 
-
-
-
 // Deletes User //
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async function (req, res) {
     const { id } = req.params
-    Users.deleteUser(id)
-        .then(deleted => {
-            if (deleted) {
-                res.status(200).json({ Message: `User with id: ${id} has been deleted` })
-            } else {
-                res.status(404).json({ Error: `Could not find User with id: ${id}` })
-            }
-        })
-        .catch(error => {
-            console.log(error)
-            res.status(500).json({ Error: 'Error deleting User' })
-        })
+    try {
+        let deleted = await Users.deleteUser(id)
+        if (deleted) {
+            res.status(200).json({ Message: `User with id: ${id} has been deleted` })
+        } else {
+            res.status(404).json({ Error: `Could not find User with id: ${id}` })
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ Error: 'Error deleting User' })
+    }
 })
 
 
