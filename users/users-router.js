@@ -4,17 +4,17 @@ const Users = require('./users-model');
 
 
 // Registers User //
-router.post('/register', validateNewUser, (req, res) => {
-    let user = req.body
-    Users.addUser(user)
-        .then(user => {
-            res.status(201).json({ data: `User Created, User Id: ${user}` })
-        })
-        .catch(error => {
-            console.log(error)
-            res.status(500).json({ Error: 'Error registering user' })
-        })
-})
+// router.post('/register', validateNewUser, (req, res) => {
+//     let user = req.body
+//     Users.addUser(user)
+//         .then(user => {
+//             res.status(201).json({ data: `User Created, User Id: ${user}` })
+//         })
+//         .catch(error => {
+//             console.log(error)
+//             res.status(500).json({ Error: 'Error registering user' })
+//         })
+// })
 
 // Gets All Users //
 // router.get('/', (req, res) => {
@@ -28,9 +28,42 @@ router.post('/register', validateNewUser, (req, res) => {
 //         })
 // })
 
+// Gets user //
+// router.get('/:id', (req, res) => {
+//     const { id } = req.params
+//     Users.getUser(id)
+//         .then(user => {
+//             if (user) {
+//                 res.status(200).json(user)
+//             }
+//             res.status(404).json('User not found')
+//         })
+//         .catch(error => {
+//             console.log(error)
+//         })
+// })
+
+
+
+
+
+
+// Registers User //
+router.post('/register', validateNewUser, async function (req, res) {
+    let newUser = req.body
+    try {
+        let user = await Users.addUser(newUser)
+        res.status(201).json({ data: `User Created, User Id: ${user}` })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ Error: 'Error registering user' })
+    }
+})
+
+// Gets All Users //
 router.get('/', async function (req, res) {
     try {
-        users = await Users.getAllUsers()
+        let users = await Users.getAllUsers()
         res.status(200).json(users)
     } catch (error) {
         console.log(error)
@@ -39,19 +72,24 @@ router.get('/', async function (req, res) {
 
 })
 
-router.get('/:id', (req, res) => {
+// Gets user //
+router.get('/:id', async function (req, res) {
     const { id } = req.params
-    Users.getUser(id)
-        .then(user => {
-            if (user) {
-                res.status(200).json(user)
-            }
-            res.status(200).json('User not found')
-        })
-        .catch(error => {
-            console.log(error)
-        })
+    try {
+        let user = await Users.getUser(id)
+        if (user) {
+            res.status(200).json(user)
+        } else {
+            res.status(404).json('User not found')
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'Error getting user' })
+    }
 })
+
+
+
 
 router.put('/:id', (req, res) => {
     const { id } = req.params
